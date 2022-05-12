@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    void check(int col,vector<string>board,vector<vector<string>>&result,vector<int>&lowerDiag,vector<int>&upperDiag,vector<int>&rowCheck){
+        if(col==board.size()) {
+            result.push_back(board);
+            return;
+        }
+        int no=board.size();
+        for(int i=0;i<board.size();i++){
+            if(rowCheck[i]==0 &&lowerDiag[i+col]==0 && upperDiag[no-1+col-i]==0){
+                rowCheck[i]=1;
+                lowerDiag[i+col]=1;
+                upperDiag[no-1+col-i]=1;
+                board[i][col]='Q';
+                check(col+1,board,result,lowerDiag,upperDiag,rowCheck);
+                board[i][col]='.';
+                rowCheck[i]=0;
+                lowerDiag[i+col]=0;
+                upperDiag[no-1+col-i]=0;
+            }
+        }
+        return;
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        if(n<1)return {};
+        vector<vector<string>>result;
+        string s(n,'.');
+        vector<string>board(n);
+        int col=0;
+        vector<int>lowerDiag(2*n-1,0);
+        vector<int>upperDiag(2*n-1,0);
+        vector<int>rowCheck(n,0);
+        for(int i=0;i<n;i++)board[i]=s;
+        check(col,board,result,lowerDiag,upperDiag,rowCheck);
+        return result;
+    }
+};
