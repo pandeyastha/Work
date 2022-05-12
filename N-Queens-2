@@ -1,0 +1,36 @@
+class Solution {
+private:
+    void helper(int col,vector<string>board,int &answer,vector<int>&leftRow,vector<int>&lowerDiag,vector<int>&upperDiag){
+        if(col==board.size()){
+            answer++;
+            return;
+        }
+        for(int row=0;row<board.size();row++){
+            if(leftRow[row]==0 &&lowerDiag[row+col]==0 &&upperDiag[board.size()-1+col-row]==0){
+                leftRow[row]=1;
+                lowerDiag[row+col]=1;
+                upperDiag[board.size()-1+col-row]=1;
+                board[row][col]='Q';
+                helper(col+1,board,answer,leftRow,lowerDiag,upperDiag);
+                leftRow[row]=0;
+                lowerDiag[row+col]=0;
+                upperDiag[board.size()-1+col-row]=0;
+                board[row][col]='.';
+                
+            }
+        }
+    }
+public:
+    int totalNQueens(int n) {
+        if(n<=1) return n;
+        int answer=0;
+        string s(n,'.');
+        vector<string>board(n);
+        for(int i=0;i<n;i++)board[i]=s;
+        vector<int>leftRow(n,0);
+        vector<int>lowerDiag(2*n-1);
+        vector<int>upperDiag(2*n-1);
+        helper(0,board,answer,leftRow,lowerDiag,upperDiag);
+        return answer;
+    }
+};
