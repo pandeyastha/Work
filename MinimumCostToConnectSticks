@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int connectSticks(vector<int>& sticks) {
+     priority_queue<int,vector<int>,greater<int>>pq;
+        int sum=0;
+        for(auto x:sticks)pq.push(x);
+        while(pq.size()>=2){
+            int first=pq.top();pq.pop();
+            int second=pq.top(); pq.pop();
+            int total=first+second;
+            pq.push(total);
+            sum+=total;
+        }
+        return sum;
+    }
+};
