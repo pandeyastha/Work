@@ -32,7 +32,7 @@ public:
             Node* temp=q.front();
             q.pop();
             value.push_back(temp->val);
-            for(auto x:temp->children)q.push(x);
+            for(auto x:temp->children)q.push(x);;
             }
             result.push_back(value);
         }
