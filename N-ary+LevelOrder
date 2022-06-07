@@ -17,7 +17,7 @@ public:
     }
 };
 */
-
+-------------------------------------------------------------------iterative-----------------------------------------------------------------------------
 class Solution {
 public:
     vector<vector<int>> levelOrder(Node* root) {
@@ -36,6 +36,28 @@ public:
             }
             result.push_back(value);
         }
+        return result;
+    }
+};
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+RECURSIVE-
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+class Solution {
+public:
+    void dfs(Node* root,int level, vector<vector<int>>&result){
+        if(root==NULL) return;
+        if(level==result.size())result.push_back({});
+        result[level].push_back(root->val);
+        for(auto x:root->children)
+        dfs(x,level+1,result);
+        return;
+    }
+    vector<vector<int>> levelOrder(Node* root) {
+        vector<vector<int>>result;
+        if(root==NULL) return {};
+        dfs(root,0,result);
         return result;
     }
 };
