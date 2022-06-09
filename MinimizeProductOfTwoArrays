@@ -1,0 +1,50 @@
+
+
+-------------------------------------------------------------------------------SORTING
+
+
+class Solution {
+public:
+    int minProductSum(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        int n=nums1.size();
+        int sum=0;
+        for(int i=0;i<nums1.size();i++){
+            sum+=nums1[i]*nums2[n-1-i];
+        }
+        return sum;
+        
+    }
+};
+
+
+
+
+
+--------------------------------------------------------------                 Counting Sort ------------------------------------------------------
+
+class Solution {
+public:
+    int minProductSum(vector<int>& nums1, vector<int>& nums2) {
+        int sum=0;
+        int n=nums1.size();
+        vector<int>one(101,0);
+        vector<int>two(101,0);
+        for(auto x:nums1) one[x]++;
+        for(auto x:nums2)two[x]++;
+        int i=0;
+        int j=100;
+        while(i<101 && j>=0){
+            while(i<101 && one[i]==0)i++;
+            while(j> 0 && two[j]==0)j--;
+            if(i==101 || j==0) break;
+            sum+=i*j;
+            one[i]--;
+            two[j]--;
+        }
+        return sum;
+        
+        
+    }
+};
