@@ -1,0 +1,43 @@
+----------------------------------------------------------------------------------Easier Approach---------------------------------------------------------------------------------
+ // Count no of AAA & BBB
+ 
+ 
+  bool winnerOfGame(string s) {
+        int a=0,b=0;
+        if(s.size()<3) return 0;
+        for(int i=1;i<s.size()-1;i++){
+            if(s[i]==s[i-1] && s[i]==s[i+1]) s[i]=='A'?a++:b++;
+        }
+        return a>b;
+    }
+
+
+-------------------------------------------------------My complex Solution ---------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    bool winnerOfGame(string colors) {
+        if(colors.size()<=2) return false;
+        int l=0;
+        int r=0;
+        int a=0,b=0;
+        string g;
+        colors.push_back(' ');
+        while(r<colors.size()){
+            if(colors[l]==colors[r])g+=colors[r++];
+            else {
+                if(g.size()<=2){l=r;g="";continue;}
+                else if(g[0]=='A') a+=g.size()-2;
+                else b+=g.size()-2;
+                g="";
+                l=r;
+                
+            }
+        }
+        
+        return a>b;
+        
+        
+    }
+};
+
