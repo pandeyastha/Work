@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        if(nums.size()==1) return nums[0];
+        int n=nums.size();
+        vector<int>prefix(n,0);
+        prefix[0]=nums[0];
+        for(int i=1;i<n;++i) prefix[i]=nums[i]+prefix[i-1];
+        int left=0;
+        int right=0;
+        int len=0;
+        vector<int>mp(10001,-1);
+        int sum=0;
+        while(right<n){
+            if(mp[nums[right]]!=-1) left=max(mp[nums[right]]+1,left);
+            mp[nums[right]]=right;
+            //len=max(len,right-left+1);
+            sum=max(sum,(prefix[right]-prefix[left]+nums[left]));
+            right++;
+        }
+        return sum;
+    }
+};
