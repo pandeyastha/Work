@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {                                 // Bottoms up approach with considering last layer as resultant and modifying it 
+        int n=triangle.size();
+        vector<int>minpath=triangle[n-1];
+        for(int layers=n-2;layers>=0;--layers){
+            for(int i=0;i<=layers;++i)
+                minpath[i]=min(minpath[i],minpath[i+1])+triangle[layers][i];
+        }
+        return minpath[0];
+    }
+};
