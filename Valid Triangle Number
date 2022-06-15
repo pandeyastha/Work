@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int triangleNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int counter=0;
+        int n=nums.size();
+        for(int k=2;k<n;++k){
+            int i=0;
+            int j=k-1;
+            while(i<j){
+                if(nums[i]+nums[j]>nums[k]){               // if this is nums[i]+nums[j]> k then all i =n bw nums[i] when added to nums[j] will b >k :. add [j-i] altogether
+                    counter+=j-i;
+                    j--;
+                }
+                else i++;
+            }
+        }
+        return counter;
+    }
+};
